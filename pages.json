@@ -1,0 +1,48 @@
+{
+	"pages": [ 
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			// 用于设置每个页面的状态栏、导航条、标题、窗口背景色等。页面中配置项会覆盖 globalStyle 中相同的配置项
+			"style": {
+				// 导航栏样式，仅支持 default/custom。custom即取消默认的原生导航栏
+				"navigationStyle":"custom"
+			}
+		}
+	    ,{
+            "path" : "pages/list/list",
+            "style" :                                                                                    
+            {
+                "navigationStyle":"custom",
+				// 是否开启下拉刷新
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationStyle":"custom",
+                "enablePullDownRefresh": false
+            }
+            
+        },{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationStyle":"custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		// 导航栏标题颜色及状态栏前景颜色，仅支持 black/white
+		"navigationBarTextStyle": "black",
+		// 导航栏标题文字内容
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
