@@ -5,8 +5,7 @@
 			<scroll-view scroll-y="true">
 				<view class="search-bar">
 					<text class="iconfont iconsearch"></text>
-					<input type="text" placeholder="搜索歌曲" v-model="searchWord" bindinput="inputHelper"
-						@confirm="handleToSearch" @input="handleToSuggest" />
+					<input type="text" placeholder="搜索歌曲" v-model="searchWord" @confirm="handleToSearch" @input="handleToSuggest" />
 					<!-- 清空搜索框并退出当前歌曲搜索界面 -->
 					<text v-show="searchType == 2" @tap="handleToClose" class="iconfont iconguanbi"></text>
 				</view>
@@ -141,10 +140,10 @@
 				this.searchType = 1;
 			},
 			// 获取搜索关键词
-			handleToSuggest(ev) {
+			handleToSuggest: uni.$debounce(function(ev) {
 				let value = ev.detail.value;
-				console.log("search-word:" + this.searchWord)
-				console.log("value:" + value)
+				// console.log("search-word:" + this.searchWord)
+				// console.log("value:" + value)
 				//为空返回第一页
 				if (!value) {
 					this.searchType = 1;
@@ -157,7 +156,7 @@
 						this.searchType = 3;
 					}
 				});
-			},
+			}),
 			// 赋值searchword并直接搜索
 			handleToWord(word) {
 				this.searchWord = word;
@@ -168,9 +167,6 @@
 					url: '/pages/detail/detail?songId=' + songId
 				});
 			},
-			inputHelper() {
-
-			}
 		}
 	}
 </script>

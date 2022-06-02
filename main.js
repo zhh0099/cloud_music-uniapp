@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store/index.js'
-import throttle from '@/common/common.js'
+import {
+	throttle,
+	debounce
+} from '@/common/utils.js'
 
 Vue.config.productionTip = false
 
@@ -27,9 +30,11 @@ Vue.filter('formatTime', function(value) {
 
 });
 
-Vue.prototype.$throttle = throttle;
-
 App.mpType = 'app'
+
+// 节流和防抖函数全局挂载到uni上
+uni.$throttle = throttle
+uni.$debounce = debounce
 
 const app = new Vue({
 	...App,

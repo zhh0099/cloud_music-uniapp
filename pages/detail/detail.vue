@@ -79,6 +79,9 @@
 		songComment
 	} from '../../common/api.js';
 	import '../../common/iconfont.css'
+	import {
+		throttle
+	} from '@/common/utils.js'
 	export default {
 		data() {
 			return {
@@ -99,10 +102,10 @@
 		onLoad(options) {
 			if (options.songId) {
 				this.playMusic(options.songId);
-			}else{
+			} else {
 				console.log('no songid')
 			}
-			
+
 		},
 		onUnload() {
 			this.cancelLyricIndex();
@@ -181,26 +184,24 @@
 				});
 
 			},
+			// 处理歌词时间，格式成秒为单位
 			formatTimeToSec(time) {
 				var arr = time.split(':');
 				return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
 			},
-			handleToPlay() {
+			handleToPlay: uni.$throttle(function() {
 				if (this.bgAudioMannager.paused) {
 					this.bgAudioMannager.play();
 				} else {
 					this.bgAudioMannager.pause();
 				}
-			},
-			handleNextSong() {
+			}),
+			handleNextSong: uni.$throttle(function() {
 				this.playMusic(this.$store.state.nextId)
-			},
-			// : this.$throttle(function() {
-			// 	this.playMusic(this.$store.state.nextId)
-			// }, 500),
-			handlePreviousSong() {
+			}, 500),
+			handlePreviousSong: uni.$throttle(function() {
 				this.playMusic(this.$store.state.previousId)
-			},
+			}),
 			listenLyricIndex() {
 				clearInterval(this.timer);
 				this.timer = setInterval(() => {
